@@ -3,320 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeAdvisor24 | The Gold Standard of Pune Real Estate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;700;900&display=swap" rel="stylesheet">
+    <title>HomeAdvisor24 | Premium Pune Real Estate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #D4AF37;
-            --dark: #000000;
-            --surface: #121212;
-            --glass: rgba(255, 255, 255, 0.05);
-            --transition-slow: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-            --transition-fast: all 0.4s ease;
+            --apple-bg: #f5f5f7; /* Classic Apple Faint Gray */
+            --apple-text: #1d1d1f;
+            --apple-sub: #86868b;
+            --apple-blue: #0071e3;
+            --glass-white: rgba(255, 255, 255, 0.7);
         }
 
-        /* --- GLOBAL RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
         body { 
-            background: var(--dark); color: #fff; font-family: 'Montserrat', sans-serif; 
-            overflow-x: hidden; scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--apple-bg); 
+            color: var(--apple-text); 
+            overflow-x: hidden;
         }
 
-        /* --- 1. THE CINEMATIC OPENER (ANIMATION) --- */
-        #portal-loader {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        /* --- 1. GRAND VIDEO INTRO --- */
+        #intro-screen {
+            position: fixed; inset: 0; z-index: 9999; background: #000;
+            display: flex; align-items: center; justify-content: center;
+            transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .portal-logo { 
-            font-family: 'Cinzel', serif; font-size: 2.5rem; letter-spacing: 15px; 
-            color: var(--gold); transform: scale(0.8); opacity: 0;
-            animation: logo-reveal 2s forwards 0.5s;
-        }
-        .portal-bar { width: 0%; height: 1px; background: var(--gold); margin-top: 30px; animation: bar-fill 1.5s forwards 0.5s; }
-        
-        @keyframes logo-reveal { to { opacity: 1; transform: scale(1); } }
-        @keyframes bar-fill { to { width: 300px; } }
-        .loaded #portal-loader { transform: scale(2); opacity: 0; visibility: hidden; transition: 1.2s; }
+        .intro-logo { font-size: 3rem; font-weight: 800; color: #fff; letter-spacing: -2px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
-        /* --- 2. NAVIGATION (US AGENT STYLE) --- */
+        /* --- 2. LIVE BACKGROUND VIDEO --- */
+        .video-wall {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60vh;
+            z-index: -1; overflow: hidden;
+        }
+        #bg-loop { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+
+        /* --- 3. APPLE NAV BAR --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 100px; padding: 0 5%;
-            display: flex; align-items: center; justify-content: space-between;
-            z-index: 1000; transition: var(--transition-fast);
+            position: fixed; top: 0; width: 100%; height: 52px; background: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(20px); z-index: 5000; display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        nav.scrolled { height: 70px; background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .nav-logo { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
-        .nav-logo span { color: var(--gold); }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 0.7rem; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; }
-        .nav-links a:hover { color: var(--gold); }
+        .nav-inner { width: 90%; max-width: 1000px; display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; }
+        .nav-inner span { cursor: pointer; color: var(--apple-text); opacity: 0.8; transition: 0.3s; }
+        .nav-inner span:hover { opacity: 1; color: var(--apple-blue); }
 
-        /* --- 3. HERO SECTION (PARALLAX) --- */
-        .hero {
-            height: 100vh; width: 100%; position: relative;
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        /* --- 4. 99ACRES STYLE FILTER (APPLE LOOK) --- */
+        .search-container {
+            margin-top: 35vh; padding: 0 5%; display: flex; flex-direction: column; align-items: center;
         }
-        .hero-bg {
-            position: absolute; inset: 0; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-            url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600');
-            background-size: cover; background-position: center; transform: scale(1.1);
-            transition: 8s linear;
+        .search-box {
+            background: var(--glass-white); backdrop-filter: blur(30px);
+            padding: 20px 40px; border-radius: 50px; display: flex; gap: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); border: 1px solid #fff;
+            width: 90%; max-width: 900px; flex-wrap: wrap; justify-content: center;
         }
-        .hero:hover .hero-bg { transform: scale(1); }
-        .hero-content { position: relative; text-align: center; z-index: 10; padding: 20px; }
-        .hero-content h1 { 
-            font-family: 'Cinzel', serif; font-size: clamp(3rem, 10vw, 6.5rem); 
-            line-height: 1.1; margin-bottom: 30px; opacity: 0; transform: translateY(50px);
-        }
-        .hero-content p { font-weight: 200; letter-spacing: 10px; margin-bottom: 40px; opacity: 0; }
-        .btn-luxe { 
-            padding: 20px 50px; border: 1px solid var(--gold); color: #fff; text-decoration: none;
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; 
-            background: transparent; transition: 0.5s; position: relative; overflow: hidden;
-        }
-        .btn-luxe:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.4); }
+        .filter-item { display: flex; flex-direction: column; gap: 5px; }
+        .filter-item label { font-size: 10px; font-weight: 700; color: var(--apple-sub); text-transform: uppercase; }
+        .filter-item select { border: none; background: transparent; font-size: 15px; font-weight: 600; outline: none; color: #000; cursor: pointer; }
 
-        /* --- 4. ABOUT US (CURATED STORY) --- */
-        .about-section { padding: 150px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
-        .about-image { position: relative; height: 600px; }
-        .about-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
-        .about-float { position: absolute; bottom: -50px; right: -50px; background: var(--gold); padding: 50px; color: #000; }
-        .about-text h2 { font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 30px; }
-        .about-text p { font-size: 1.1rem; line-height: 2; color: #999; margin-bottom: 20px; }
+        /* --- 5. PROPERTY GRID --- */
+        .content-area { padding: 80px 5%; max-width: 1440px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 
-        /* --- 5. THE REAL ESTATE SHOWCASE (25 PROPERTIES) --- */
-        .showcase { padding: 100px 5%; background: #080808; }
-        .section-tag { color: var(--gold); letter-spacing: 5px; text-transform: uppercase; font-size: 0.8rem; text-align: center; display: block; margin-bottom: 15px; }
-        .section-title { font-family: 'Cinzel', serif; font-size: 3.5rem; text-align: center; margin-bottom: 80px; }
-
-        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 40px; }
-        .property-card { 
-            background: var(--surface); border: 1px solid rgba(255,255,255,0.05);
-            opacity: 0; transform: translateY(50px); transition: var(--transition-slow);
+        .card {
+            background: #fff; border-radius: 24px; overflow: hidden;
+            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            border: 1px solid rgba(0,0,0,0.03);
+            opacity: 0; transform: translateY(30px);
         }
-        .property-card.animate { opacity: 1; transform: translateY(0); }
-        
-        .prop-visual { height: 450px; position: relative; overflow: hidden; }
-        .prop-visual img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s; }
-        .property-card:hover .prop-visual img { transform: scale(1.1); }
-        .prop-tag { position: absolute; top: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 8px 20px; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; }
+        .card.reveal { opacity: 1; transform: translateY(0); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
 
-        .prop-details { padding: 40px; position: relative; }
-        .prop-price { font-size: 2rem; font-weight: 900; color: var(--gold); margin-bottom: 10px; }
-        .prop-name { font-size: 1.5rem; font-family: 'Cinzel', serif; margin-bottom: 10px; }
-        .prop-loc { color: #666; font-size: 0.9rem; margin-bottom: 30px; }
-        
-        .prop-actions { display: flex; gap: 15px; border-top: 1px solid #222; padding-top: 30px; }
-        .prop-btn { 
-            flex: 1; padding: 15px; text-align: center; text-decoration: none; font-size: 0.75rem; 
-            font-weight: 800; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
-        }
-        .btn-gold-fill { background: var(--gold); color: #000; }
-        .btn-white-line { border: 1px solid #fff; color: #fff; }
-        .btn-white-line:hover { background: #fff; color: #000; }
+        .card-img { height: 220px; overflow: hidden; position: relative; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
+        .price-tag { position: absolute; bottom: 15px; left: 15px; background: #fff; padding: 5px 12px; border-radius: 12px; font-weight: 700; font-size: 13px; }
 
-        /* --- 6. AGENT CONSULTATION (PRUTHVIRAJ MOTE) --- */
-        .consult-section { 
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600');
-            background-size: cover; padding: 150px 10%; text-align: center;
-        }
-        .consult-section h2 { font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 20px; }
-        .consult-section p { max-width: 800px; margin: 0 auto 50px; color: #888; font-size: 1.2rem; }
+        .card-info { padding: 20px; }
+        .card-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.5px; }
+        .card-info p { font-size: 0.85rem; color: var(--apple-sub); margin-bottom: 20px; }
 
-        /* --- 7. FOOTER (THE GRAND FINALE) --- */
-        footer { padding: 100px 10% 50px; background: #000; border-top: 1px solid #111; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
-        .footer-logo { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold); margin-bottom: 30px; display: block; }
-        .footer-col h4 { margin-bottom: 30px; letter-spacing: 3px; color: var(--gold); }
-        .footer-col ul { list-style: none; }
-        .footer-col li { margin-bottom: 15px; color: #555; font-size: 0.9rem; cursor: pointer; transition: 0.3s; }
-        .footer-col li:hover { color: #fff; }
-        .copy { margin-top: 100px; border-top: 1px solid #111; padding-top: 40px; text-align: center; font-size: 0.7rem; color: #333; letter-spacing: 5px; }
+        .btn-group { display: flex; gap: 8px; }
+        .btn { flex: 1; padding: 10px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: 700; text-align: center; transition: 0.3s; }
+        .btn-call { background: var(--apple-bg); color: #000; }
+        .btn-wa { background: #25D366; color: #fff; }
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 1024px) {
-            .about-section { grid-template-columns: 1fr; gap: 50px; }
-            .section-title { font-size: 2.5rem; }
-            .hero-content h1 { font-size: 4rem; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-        }
+        /* --- ABOUT OWNER SECTION --- */
+        .about-section { padding: 100px 5%; background: #fff; border-radius: 50px 50px 0 0; margin-top: 50px; }
+        .about-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text h2 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+
+        @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } .about-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .search-box { border-radius: 20px; } }
     </style>
 </head>
 <body>
 
-    <div id="portal-loader">
-        <div class="portal-logo">HOMEADVISOR24</div>
-        <div class="portal-bar"></div>
+    <div id="intro-screen">
+        <div class="intro-logo">HomeAdvisor24</div>
     </div>
 
-    <nav id="navbar">
-        <a href="#" class="nav-logo">HA<span>24</span></a>
-        <div class="nav-links">
-            <a href="#about">The Identity</a>
-            <a href="#portfolio">Portfolios</a>
-            <a href="#contact">Consultation</a>
+    <div class="video-wall">
+        <video autoplay muted loop playsinline id="bg-loop">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-metropolis-at-night-42281-large.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <nav>
+        <div class="nav-inner">
+            <span style="font-weight: 800; font-size: 16px; opacity: 1;">HA24</span>
+            <div style="display: flex; gap: 25px;">
+                <span onclick="scrollToSec('home')">Home</span>
+                <span onclick="scrollToSec('properties')">Properties</span>
+                <span onclick="scrollToSec('about')">Pruthviraj Mote</span>
+            </div>
         </div>
-        <a href="tel:7558553404" class="btn-luxe" style="padding: 10px 25px; font-size: 0.6rem;">Connect Direct</a>
     </nav>
 
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <p id="h-sub">PUNE EAST'S MOST EXCLUSIVE REAL ESTATE</p>
-            <h1 id="h-main">Curated Luxury<br>Living</h1>
-            <a href="#portfolio" class="btn-luxe" id="h-btn">View The Collection</a>
+    <div class="search-container" id="home">
+        <h1 style="color: #fff; margin-bottom: 30px; font-size: 3rem; text-align: center; font-weight: 800; letter-spacing: -2px;">Pune East Luxury Portfolio.</h1>
+        <div class="search-box">
+            <div class="filter-item">
+                <label>Location</label>
+                <select id="locF" onchange="filterListings()">
+                    <option value="all">Pune East (All)</option>
+                    <option value="Kharadi">Kharadi</option>
+                    <option value="Mundhwa">Mundhwa</option>
+                    <option value="Hadapsar">Hadapsar</option>
+                    <option value="Viman Nagar">Viman Nagar</option>
+                </select>
+            </div>
+            <div style="width: 1px; background: #ddd; height: 30px; margin: auto 0;"></div>
+            <div class="filter-item">
+                <label>Budget</label>
+                <select id="budF" onchange="filterListings()">
+                    <option value="all">Any Budget</option>
+                    <option value="1">Under 1 Cr</option>
+                    <option value="5">1 Cr - 5 Cr</option>
+                    <option value="10">Ultra Luxe</option>
+                </select>
+            </div>
+            <div style="width: 1px; background: #ddd; height: 30px; margin: auto 0;"></div>
+            <button onclick="filterListings()" style="background: var(--apple-blue); color: #fff; border: none; padding: 12px 30px; border-radius: 30px; font-weight: 700; cursor: pointer;">Search</button>
         </div>
-    </section>
+    </div>
+
+    <div class="content-area" id="properties">
+        <div class="grid" id="main-grid">
+            </div>
+    </div>
 
     <section class="about-section" id="about">
-        <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800">
-            <div class="about-float">
-                <h3 style="font-size: 2rem;">10+</h3>
-                <p>Years of Legacy</p>
+        <div class="about-grid">
+            <div class="about-text">
+                <p style="color: var(--apple-blue); font-weight: 800; font-size: 14px; margin-bottom: 10px;">PRINCIPAL CONSULTANT</p>
+                <h2>Pruthviraj Mote</h2>
+                <p style="color: var(--apple-sub); margin-top: 20px; line-height: 1.6;">
+                    Specializing in Pune East's high-growth corridors. With HomeAdvisor24, we provide direct developer access for Mundhwa, Keshav Nagar, and Kharadi's most prestigious high-rise projects.
+                </p>
+                <p style="margin-top: 20px; font-weight: 600;">Office: Mundhwa-Keshav Nagar Road, Pune East.</p>
+                <p style="font-weight: 600; color: var(--apple-blue);">Phone: +91 7558553404</p>
             </div>
-        </div>
-        <div class="about-text">
-            <span class="section-tag">Since 2024</span>
-            <h2>Led by Pruthviraj Mote</h2>
-            <p>HomeAdvisor24 is the definitive guide to high-rise living in Pune East. We don't just sell homes; we secure legacies. From the tech-driven corridors of Kharadi to the royal essence of Kalyani Nagar, our expertise spans across 25+ iconic projects.</p>
-            <p>Our methodology combines data-driven insights with a human-centric approach, ensuring that your next investment is as sound as it is beautiful.</p>
+            <div style="background: #f5f5f7; height: 400px; border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ccc;">HA24</div>
         </div>
     </section>
 
-    <section class="showcase" id="portfolio">
-        <span class="section-tag">The Portfolio</span>
-        <h2 class="section-title">25 Real Masterpieces</h2>
-
-        <div class="property-grid" id="mainGrid">
-            </div>
-    </section>
-
-    <section class="consult-section" id="contact">
-        <h2>Ready for a Private Showing?</h2>
-        <p>Book a personalized tour of any property within our portfolio. Pruthviraj Mote will personally guide you through the investment landscape of Pune East.</p>
-        <a href="https://wa.me/917558553404?text=I want to schedule a private showing" class="btn-luxe">Schedule Appointment</a>
-    </section>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <span class="footer-logo">HA24 LUXE</span>
-                <p style="color:#444; line-height: 1.8; font-size: 0.85rem;">The only RERA-certified consultancy specialized in Pune's high-value townships. Zero Brokerage on direct developer bookings.</p>
-            </div>
-            <div class="footer-col">
-                <h4>LOCALITIES</h4>
-                <ul>
-                    <li>Kharadi IT Hub</li>
-                    <li>Hadapsar Global City</li>
-                    <li>Wagholi Residences</li>
-                    <li>Viman Nagar Elite</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>DEVELOPERS</h4>
-                <ul>
-                    <li>Panchshil Group</li>
-                    <li>VTP Realty</li>
-                    <li>Amanora Town</li>
-                    <li>Lodha Group</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>DIRECT</h4>
-                <ul>
-                    <li>+91 7558553404</li>
-                    <li>Consult@ha24.com</li>
-                    <li>Kharadi, Pune</li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">
-            © 2025 HOMEADVISOR24. ALL RIGHTS RESERVED. DESIGNED FOR THE ELITE.
-        </div>
+    <footer style="text-align: center; padding: 50px; color: var(--apple-sub); font-size: 12px;">
+        © 2025 HomeAdvisor24 | Authorized Channel Partner | Pune East
     </footer>
 
     <script>
-        const projects = [
-            { n: "Trump Towers", l: "Kalyani Nagar", p: "₹15.2 Cr+", b: "4.5 BHK", s: "4400", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800" },
-            { n: "Panchshil Towers", l: "Kharadi", p: "₹3.25 Cr+", b: "3.5 BHK", s: "2800", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" },
-            { n: "Amanora Gateway", l: "Hadapsar", p: "₹3.80 Cr+", b: "4 BHK", s: "3100", i: "https://images.unsplash.com/photo-1600607687940-c52af04657b3?w=800" },
-            { n: "Lodha Estilo", l: "Kharadi", p: "₹2.45 Cr+", b: "3 BHK", s: "1850", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" },
-            { n: "Verde Luxe", l: "Kalyani Nagar", p: "₹4.60 Cr+", b: "4 BHK", s: "3500", i: "https://images.unsplash.com/photo-1600566753086-00f18fb6f3ea?w=800" },
-            { n: "Yoo Pune", l: "Hadapsar", p: "₹8.50 Cr+", b: "5 BHK", s: "5200", i: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800" },
-            { n: "VTP Cygnus", l: "Kharadi", p: "₹82 L+", b: "2 BHK", s: "850", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" },
-            { n: "Gera World of Joy", l: "Kharadi", p: "₹1.15 Cr+", b: "2.5 BHK", s: "1150", i: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800" },
-            { n: "Godrej Sky Greens", l: "Manjri", p: "₹85 L+", b: "2 BHK", s: "950", i: "https://images.unsplash.com/photo-1449156003053-c3c821161d9b?w=800" },
-            { n: "Shapoorji Joyville", l: "Hadapsar", p: "₹78 L+", b: "2 BHK", s: "920", i: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800" },
-            { n: "Kolte Patil Ivy", l: "Wagholi", p: "₹65 L+", b: "2 BHK", s: "1050", i: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800" },
-            { n: "Marvel Zephyr", l: "Kharadi", p: "₹2.20 Cr+", b: "3 BHK", s: "2100", i: "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?w=800" },
-            { n: "Eon Waterfront", l: "Kharadi", p: "₹3.50 Cr+", b: "4 BHK", s: "2600", i: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800" },
-            { n: "Kumar Prospera", l: "Hadapsar", p: "₹1.50 Cr+", b: "3 BHK", s: "1450", i: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800" },
-            { n: "Majestique Signature", l: "Kharadi", p: "₹1.80 Cr+", b: "3 BHK", s: "1600", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" },
-            { n: "Nyati Unitree", l: "Viman Nagar", p: "₹4.00 Cr+", b: "Commercial", s: "2000", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" },
-            { n: "Supreme Estia", l: "Kharadi", p: "₹1.65 Cr+", b: "3 BHK", s: "1350", i: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800" },
-            { n: "Kalpataru Serenity", l: "Hadapsar", p: "₹95 L+", b: "2 BHK", s: "1050", i: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800" },
-            { n: "Mantra Insignia", l: "Mundhwa", p: "₹85 L+", b: "2 BHK", s: "950", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" },
-            { n: "Purva Silversands", l: "Mundhwa", p: "₹1.10 Cr+", b: "3 BHK", s: "1400", i: "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800" },
-            { n: "Bluegrass Resi", l: "Kalyani Nagar", p: "₹3.20 Cr+", b: "3 BHK", s: "2200", i: "https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?w=800" },
-            { n: "Lunkad Sky Privé", l: "Viman Nagar", p: "₹3.10 Cr+", b: "3 BHK", s: "1900", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" },
-            { n: "Triaa Lifestyle", l: "Wagholi", p: "₹62 L+", b: "2 BHK", s: "850", i: "https://images.unsplash.com/photo-1475855581690-804d4628733c?w=800" },
-            { n: "Oxford Florida", l: "Mundhwa", p: "₹90 L+", b: "2 BHK", s: "1000", i: "https://images.unsplash.com/photo-1600566752355-35792bedca5d?w=800" },
-            { n: "Gera Emerald", l: "Kharadi", p: "₹1.40 Cr+", b: "3 BHK", s: "1450", i: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800" }
+        const rawData = [
+            { name: "Panchshil Towers", loc: "Kharadi", price: 3.5, dPrice: "3.5 Cr", img: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800" },
+            { name: "Trump Towers", loc: "Viman Nagar", price: 15.0, dPrice: "15 Cr", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800" },
+            { name: "VTP Cygnus", loc: "Mundhwa", price: 0.85, dPrice: "85 Lac", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" },
+            { name: "Amanora Gateway", loc: "Hadapsar", price: 4.2, dPrice: "4.2 Cr", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" },
+            { name: "Godrej Sky Greens", loc: "Keshav Nagar", price: 0.88, dPrice: "88 Lac", img: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=800" }
         ];
 
-        function render() {
-            const grid = document.getElementById('mainGrid');
-            grid.innerHTML = projects.map((p, i) => `
-                <div class="property-card" data-aos>
-                    <div class="prop-visual">
-                        <img src="${p.i}" alt="${p.n}">
-                        <div class="prop-tag">RERA REGISTERED</div>
+        // Creating 60 listings
+        const inventory = Array.from({ length: 60 }, (_, i) => ({
+            ...rawData[i % rawData.length], id: i
+        }));
+
+        function filterListings() {
+            const l = document.getElementById('locF').value;
+            const b = document.getElementById('budF').value;
+            const filtered = inventory.filter(p => {
+                const locM = l === 'all' || p.loc === l;
+                let budM = true;
+                if(b === '1') budM = p.price < 1;
+                else if(b === '5') budM = p.price >= 1 && p.price <= 5;
+                else if(b === '10') budM = p.price > 5;
+                return locM && budM;
+            });
+            render(filtered);
+        }
+
+        function render(data) {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = data.map((p, i) => `
+                <div class="card">
+                    <div class="card-img">
+                        <img src="${p.img}">
+                        <div class="price-tag">₹ ${p.dPrice}</div>
                     </div>
-                    <div class="prop-details">
-                        <div class="prop-price">${p.p}</div>
-                        <div class="prop-name">${p.n}</div>
-                        <div class="prop-loc">📍 ${p.l} • ${p.b} • ${p.s} Sqft</div>
-                        <div class="prop-actions">
-                            <a href="tel:7558553404" class="prop-btn btn-gold-fill">Call Consultant</a>
-                            <a href="https://wa.me/917558553404?text=Interested in ${p.n}" class="prop-btn btn-white-line">WhatsApp</a>
+                    <div class="card-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.loc} • Pune East</p>
+                        <div class="btn-group">
+                            <a href="tel:7558553404" class="btn btn-call">Call</a>
+                            <a href="https://wa.me/917558553404" class="btn btn-wa">WhatsApp</a>
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            // SCROLL OBSERVER
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('animate');
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
-        }
-
-        // HERO ANIMATIONS
-        function initHero() {
             setTimeout(() => {
-                document.getElementById('h-sub').style.opacity = '1';
-                document.getElementById('h-main').style.opacity = '1';
-                document.getElementById('h-main').style.transform = 'translateY(0)';
-                document.getElementById('h-btn').style.opacity = '1';
-            }, 2500);
+                document.querySelectorAll('.card').forEach((c, i) => {
+                    setTimeout(() => c.classList.add('reveal'), i * 30);
+                });
+            }, 100);
         }
 
-        // NAVBAR SCROLL
-        window.onscroll = () => {
-            if (window.scrollY > 50) document.getElementById('navbar').classList.add('scrolled');
-            else document.getElementById('navbar').classList.remove('scrolled');
-        };
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
 
         window.onload = () => {
             setTimeout(() => {
-                document.body.classList.add('loaded');
-                render();
-                initHero();
-            }, 2000);
+                document.getElementById('intro-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('intro-screen').style.display = 'none';
+                    render(inventory);
+                }, 1000);
+            }, 2500);
         };
     </script>
 </body>
