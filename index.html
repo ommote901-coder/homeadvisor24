@@ -3,333 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HA24 | Pruthviraj Mote - Neon Legacy Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>HomeAdvisor24 | 80+ Premium Projects Pune East</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* HOMEADVISOR24 - THE NEON LEGACY PORTAL
-           CREDITS: PRUTHRIVAJ MOTE
-           VERSION: 4.0 (ULTRA-SMOOTH)
-        */
         :root {
             --apple-blue: #0071e3;
-            --neon-blue: #00f2ff;
-            --neon-gold: #ffcc00;
-            --apple-silver: #f5f5f7;
-            --apple-dark: #1d1d1f;
-            --apple-green: #30d158;
-            --glass-white: rgba(255, 255, 255, 0.7);
-            --glass-blur: blur(30px);
-            --transition-smooth: 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            --apple-green: #28cd41;
+            --sf-black: #1d1d1f;
+            --luxury-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --soft-gold: #c9a24d;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: var(--apple-dark); overflow-x: hidden; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: #fff; color: var(--sf-black); line-height: 1.5; overflow-x: hidden; }
 
-        /* --- 1. NEON CINEMATIC INTRO --- */
-        #intro-stage {
-            position: fixed; inset: 0; z-index: 10000; 
-            background: #000;
-            display: flex; align-items: center; justify-content: center;
-            transition: 1.5s cubic-bezier(0.8, 0, 0.2, 1);
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.15, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        nav {
+            position: fixed; top: 0; width: 100%; height: 50px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: saturate(180%) blur(20px);
+            z-index: 9999; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 6%; border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        .neon-logo-box {
-            width: 150px; height: 150px; border: 4px solid var(--neon-blue); border-radius: 40px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3.5rem; font-weight: 900; color: #fff;
-            box-shadow: 0 0 20px var(--neon-blue), inset 0 0 20px var(--neon-blue);
-            animation: neonPulse 2s infinite alternate;
+
+        .hero {
+            min-height: 55vh; display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; text-align: center; background: #000; color: #fff;
+            padding: 100px 20px; position: relative;
         }
-        @keyframes neonPulse {
-            from { transform: scale(1); box-shadow: 0 0 20px var(--neon-blue); }
-            to { transform: scale(1.1); box-shadow: 0 0 50px var(--neon-blue), 0 0 100px var(--neon-blue); }
+        .hero-bg { position: absolute; inset: 0; object-fit: cover; opacity: 0.55; width: 100%; height: 100%; }
+        .hero h1 { font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 800; letter-spacing: -3px; z-index: 1; }
+
+        .filter-container { background: #f5f5f7; padding: 40px 6%; display: flex; flex-direction: column; align-items: center; }
+        .smart-box { width: 100%; max-width: 600px; display: flex; gap: 10px; background: #fff; padding: 8px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .smart-box select { flex: 1; border: none; padding: 15px; font-weight: 600; font-size: 1rem; outline: none; background: transparent; }
+        .go-btn { background: var(--apple-blue); color: white; border: none; padding: 0 25px; border-radius: 14px; font-weight: 700; cursor: pointer; }
+
+        .section-padding { padding: 60px 6%; }
+        .main-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+        .loc-card {
+            position: relative; height: 380px; border-radius: 24px; overflow: hidden;
+            cursor: pointer; background: #000; transition: 0.4s;
         }
-        .intro-text-box { position: absolute; bottom: 15%; text-align: center; color: #fff; width: 100%; padding: 0 20px; }
-        .funny-start { font-size: 1.4rem; color: var(--apple-green); font-weight: 500; opacity: 0; animation: revealText 4s forwards; }
-        @keyframes revealText { 0% { opacity:0; } 20% { opacity:1; } 80% { opacity:1; } 100% { opacity:0; } }
+        .loc-card:hover { transform: scale(1.02); }
+        .loc-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .loc-text { position: absolute; bottom: 25px; left: 25px; color: #fff; }
 
-        /* --- 2. LIVE BACKGROUND --- */
-        .live-wallpaper { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
-        #lodha-bg { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
-
-        /* --- 3. PREMIUM NAV --- */
-        header {
-            position: sticky; top: 0; height: 75px; background: var(--glass-white); 
-            backdrop-filter: var(--glass-blur); border-bottom: 1px solid rgba(0,0,0,0.05);
-            z-index: 5000; display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
-        }
-        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #000; font-weight: 800; font-size: 1.2rem; }
-        .brand-chip { background: #000; color: #fff; padding: 5px 12px; border-radius: 12px; }
-
-        /* --- 4. HERO SECTION --- */
-        .hero { height: 75vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; }
-        .hero h2 { font-size: clamp(3rem, 10vw, 7rem); font-weight: 800; letter-spacing: -5px; line-height: 0.9; margin-bottom: 30px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .hero-sub { font-size: 1.3rem; max-width: 700px; padding: 15px 30px; border-left: 5px solid var(--neon-blue); background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); border-radius: 0 20px 20px 0; }
-
-        /* --- 5. LOCATION GRID (RESPONSIVE) --- */
-        .main-container { position: relative; z-index: 10; background: #fff; border-radius: 60px 60px 0 0; padding: 100px 5%; min-height: 100vh; }
-        .section-tag { color: var(--apple-blue); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; display: block; text-align: center; margin-bottom: 15px; }
-        .section-title { font-size: 3.5rem; font-weight: 800; text-align: center; margin-bottom: 60px; letter-spacing: -2px; }
-
-        .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .loc-card { height: 500px; border-radius: 45px; overflow: hidden; cursor: pointer; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.1); transition: var(--transition-smooth); }
-        .loc-card img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s; }
-        .loc-card:hover { transform: translateY(-15px) scale(0.98); }
-        .loc-card:hover img { transform: scale(1.1); filter: brightness(0.8); }
-        .loc-card h4 { position: absolute; bottom: 40px; left: 40px; color: #fff; font-size: 2.8rem; font-weight: 800; }
-
-        /* --- 6. PORTFOLIO VIEW (3-CARDS PER LINE) --- */
-        #portfolio-view { 
-            display: none; position: fixed; inset: 0; z-index: 6000; background: var(--apple-silver); 
-            overflow-y: auto; padding: 100px 5% 50px; transform: translateY(100%); transition: var(--transition-smooth);
-        }
-        #portfolio-view.active { transform: translateY(0); }
+        #modal { display: none; position: fixed; inset: 0; z-index: 10000; background: #fff; overflow-y: auto; padding-top: 60px; }
+        .modal-header { position: fixed; top: 0; width: 100%; background: #fff; padding: 15px 6%; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; z-index: 10001; }
+        .prop-container { padding: 30px 6%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         
-        .back-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; }
-        
-        /* 3 CARDS PER LINE GRID */
-        .prop-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 30px; 
-        }
+        .prop-card { background: #f5f5f7; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.02); }
+        .prop-img { width: 100%; height: 200px; object-fit: cover; }
+        .prop-info { padding: 20px; }
+        .price-row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 0.9rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 5px; }
+        .price-tag { font-weight: 800; color: var(--apple-blue); }
 
-        .prop-card { background: #fff; border-radius: 40px; overflow: hidden; transition: 0.5s; border: 1px solid rgba(0,0,0,0.02); }
-        .prop-card:hover { transform: translateY(-10px); box-shadow: 0 40px 80px rgba(0,0,0,0.1); }
-        .prop-img { height: 260px; overflow: hidden; position: relative; }
-        .prop-img img { width: 100%; height: 100%; object-fit: cover; }
-        .roi-tag { position: absolute; top: 20px; left: 20px; background: var(--apple-green); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 10px; font-weight: 800; }
-
-        .prop-info { padding: 35px; }
-        .prop-info h5 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
-        .prop-price { font-size: 2rem; font-weight: 800; color: var(--apple-blue); margin-bottom: 30px; display: block; }
-        
-        .cta-box { display: flex; gap: 15px; }
-        .cta-btn { flex: 1; padding: 18px; border-radius: 18px; text-decoration: none; text-align: center; font-weight: 800; font-size: 12px; text-transform: uppercase; }
-        .cta-black { background: #000; color: #fff; }
-        .cta-green { background: var(--apple-green); color: #fff; }
-
-        /* --- 7. ABOUT MYSELF (NEON UPGRADE) --- */
-        .about-section { padding: 120px 10%; background: #fff; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
-        
-        .neon-branding-card { 
-            height: 550px; background: #000; border-radius: 50px; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+        .about-wrap { padding: 80px 6%; background: #f5f5f7; text-align: center; }
+        .luxury-card {
+            max-width: 900px; margin: auto; padding: 60px 40px; border-radius: 36px;
+            background: var(--luxury-gradient); box-shadow: 0 30px 60px rgba(0,0,0,0.15); color: #fff;
         }
-        .neon-branding-card::before {
-            content: ""; position: absolute; width: 150%; height: 150%;
-            background: conic-gradient(from 0deg, var(--neon-blue), transparent, var(--neon-gold), transparent, var(--neon-blue));
-            animation: rotateNeon 6s linear infinite;
-        }
-        @keyframes rotateNeon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        .inner-neon-logo {
-            position: relative; z-index: 2; width: 200px; height: 200px;
-            background: rgba(0,0,0,0.9); border-radius: 40px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 4.5rem; font-weight: 900; color: #fff;
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-        .neon-label { position: relative; z-index: 2; color: #fff; margin-top: 30px; letter-spacing: 6px; font-weight: 800; font-size: 1.2rem; text-shadow: 0 0 10px var(--neon-blue); }
+        .luxury-title { font-size: 2.8rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; color: var(--soft-gold); }
 
-        .about-content h2 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 30px; }
-        .about-content p { font-size: 1.3rem; color: #515154; line-height: 1.8; margin-bottom: 40px; }
-        .experience-chip { background: var(--apple-silver); padding: 30px; border-radius: 35px; border-left: 8px solid var(--neon-blue); }
-
-        /* --- 8. FUNNY FINALE --- */
-        .funny-finale { padding: 150px 5%; background: var(--apple-dark); color: #fff; text-align: center; border-radius: 60px 60px 0 0; }
-        .funny-finale h2 { font-size: 4rem; font-weight: 800; margin-bottom: 35px; letter-spacing: -2px; }
-        .funny-finale p { font-size: 1.5rem; color: #a1a1a6; max-width: 900px; margin: 0 auto 60px; line-height: 1.6; }
-        .ultra-call-btn { 
-            background: var(--apple-blue); color: #fff; padding: 25px 80px; border-radius: 100px; 
-            text-decoration: none; font-weight: 800; font-size: 1.8rem; display: inline-block; 
-            box-shadow: 0 20px 50px rgba(0, 113, 227, 0.4); transition: 0.5s;
+        .sticky-footer {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 400px; background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px); border-radius: 40px; padding: 8px;
+            display: flex; gap: 8px; z-index: 999; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .ultra-call-btn:hover { transform: scale(1.05) translateY(-10px); box-shadow: 0 40px 100px rgba(0, 113, 227, 0.6); }
-
-        /* --- MOBILE ADJUSTMENTS --- */
-        @media (max-width: 1100px) {
-            .prop-grid { grid-template-columns: repeat(2, 1fr); }
-            .about-section { grid-template-columns: 1fr; text-align: center; }
-        }
-        @media (max-width: 768px) {
-            .prop-grid { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 3.5rem; }
-            .section-title { font-size: 2.5rem; }
-            .funny-finale h2 { font-size: 2.2rem; }
-            .neon-branding-card { height: 400px; }
-        }
-
-        #scroll-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--neon-blue); z-index: 10001; width: 0%; box-shadow: 0 0 15px var(--neon-blue); }
+        .f-btn { flex: 1; padding: 12px; border-radius: 30px; text-decoration: none; font-weight: 700; text-align: center; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-    <div id="scroll-bar"></div>
-
-    <div id="intro-stage">
-        <div class="neon-logo-box">HA24</div>
-        <div class="intro-text-box">
-            <h1 style="color:#fff; font-size: 3rem; margin-bottom: 10px;">HomeAdvisor24</h1>
-            <p class="funny-start">"Finding a home is like dating. Everyone looks good in photos, but you need an expert to see the reality!"</p>
-        </div>
-    </div>
-
-    <div class="live-wallpaper">
-        <video autoplay muted loop playsinline id="lodha-bg">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-buildings-in-the-city-at-night-42283-large.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <header>
-        <a href="javascript:location.reload()" class="nav-brand">
-            <span class="brand-chip">HA24</span>
-            <span>PRUTHRIVAJ MOTE</span>
-        </a>
-        <a href="tel:7558553404" style="text-decoration:none; color:var(--apple-blue); font-weight:800;">+91 7558553404</a>
-    </header>
+    <nav>
+        <span style="font-weight: 800;">HomeAdvisor24</span>
+        <span style="font-size: 0.65rem; font-weight: 700; color: #86868b;">BY PRUTHVIRAJ</span>
+    </nav>
 
     <section class="hero">
-        <h2>Your Vision. <br>Our Expertise.</h2>
-        <div class="hero-sub" id="quote-box">"Real estate is the safest investment on earth."</div>
+        <img class="hero-bg" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80">
+        <h1 class="reveal active">Pune East Portfolio.<br>80+ Premium Projects.</h1>
     </section>
 
-    <main class="main-container">
-        <span class="section-tag">Premium Territories</span>
-        <h3 class="section-title">The Golden Corridor</h3>
-        
-        <div class="loc-grid">
-            <div class="loc-card" onclick="showPortfolio('Kharadi')">
-                <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800">
-                <h4>Kharadi</h4>
-            </div>
-            <div class="loc-card" onclick="showPortfolio('Mundhwa')">
-                <img src="https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800">
-                <h4>Mundhwa</h4>
-            </div>
-            <div class="loc-card" onclick="showPortfolio('Keshav Nagar')">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800">
-                <h4>Keshav Nagar</h4>
-            </div>
-            <div class="loc-card" onclick="showPortfolio('Viman Nagar')">
-                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800">
-                <h4>Viman Nagar</h4>
-            </div>
-            <div class="loc-card" onclick="showPortfolio('Hadapsar')">
-                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800">
-                <h4>Hadapsar</h4>
-            </div>
-            <div class="loc-card" onclick="showPortfolio('Wagholi')">
-                <img src="https://images.unsplash.com/photo-1515263487990-61b07816b324?w=800">
-                <h4>Wagholi</h4>
-            </div>
+    <section class="filter-container">
+        <div class="smart-box reveal active">
+            <select id="locDropdown"><option value="">Select Neighborhood</option></select>
+            <button class="go-btn" onclick="handleSearch()">Search</button>
         </div>
-    </main>
+    </section>
 
-    <div id="portfolio-view">
-        <div class="back-header">
-            <h3 id="loc-tag" style="font-size: 3rem; font-weight: 800;">Collection</h3>
-            <button onclick="hidePortfolio()" style="border:none; background:#000; color:#fff; padding:15px 40px; border-radius:40px; font-weight:800; cursor:pointer;">Close Portfolio</button>
+    <section class="section-padding">
+        <div class="main-grid" id="locGrid"></div>
+    </section>
+
+    <div id="modal">
+        <div class="modal-header">
+            <h2 id="modalTitle" style="font-weight: 800;"></h2>
+            <button onclick="closeModal()" style="background:#000; color:#fff; border:none; padding:8px 20px; border-radius:20px; font-weight:700; cursor:pointer;">Close</button>
         </div>
-        <div class="prop-grid" id="prop-engine"></div>
+        <div class="prop-container" id="propEngine"></div>
     </div>
 
-    <section class="about-section">
-        <div class="neon-branding-card">
-            <div class="inner-neon-logo">HA24</div>
-            <div class="neon-label">HOMEADVISOR24</div>
-        </div>
-        <div class="about-content">
-            <h2>Pruthviraj Mote</h2>
-            <p>
-                Leading <strong>HomeAdvisor24</strong> with a vision to redefine luxury home buying in Pune East. With over 4 years of experience and 500+ successful consultations, I specialize in high-end glass-facade towers and township living.
+    <section class="about-wrap">
+        <div class="luxury-card reveal">
+            <h2 class="luxury-title">The Gold Standard.</h2>
+            <p style="font-size: 1.1rem; color: #e5e5e5; font-weight: 500; margin-bottom: 30px; line-height:1.7;">
+                HomeAdvisor24 by <b>Pruthviraj</b> delivers Pune's most extensive property portfolio. 
+                With 80+ verified builder-direct listings, we ensure you get the widest choice 
+                with **Zero Brokerage** and total transparency.
             </p>
-            <div class="experience-chip">
-                <p><strong>OFFICE:</strong> Main Mundhwa - Keshav Nagar Connectivity Road, Pune East.</p>
-                <p style="margin-top:10px; color:var(--apple-blue); font-weight:800;">EXPERTISE: LUXURY RESIDENTIAL & ROI ASSETS</p>
+            <div style="font-weight: 600; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; color:#ddd;">
+                📍 Kharadi-Magarpatta Core | 📧 pruthvirajm901@gmail.com
             </div>
         </div>
     </section>
 
-    <footer class="funny-finale">
-        <h2>Enough Scrolling, <br>Let's Start Viewing.</h2>
-        <p>
-            Buying a home is the only time you'll be happy to go into millions of debt... just make sure you do it with me so your wife doesn't kick you out! 
-            I promise the property will look better than my jokes. Let's find your dream home today.
-        </p>
-        <a href="tel:7558553404" class="ultra-call-btn">Call Pruthviraj Now</a>
-    </footer>
+    <div class="sticky-footer">
+        <a href="tel:7558553404" class="f-btn" style="background:#000; color:#fff;">📞 Direct Call</a>
+        <a href="https://wa.me/917558553404" class="f-btn" style="background:var(--apple-green); color:#fff;">💬 WhatsApp</a>
+    </div>
 
     <script>
-        // 1. SCROLL PROGRESS
-        window.onscroll = () => {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scroll-bar").style.width = (winScroll / height) * 100 + "%";
+        const inventory = {
+            "Kharadi": { 
+                img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800", 
+                projects: [
+                    { n: "Pristine O2 World", p: "1.00 Cr", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" },
+                    { n: "Lodha Camelot", p: "2.00 Cr", i: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600" },
+                    { n: "VJ PKC", p: "1.40 Cr", i: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=600" },
+                    { n: "Gera Island of Joy", p: "80 L", i: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" },
+                    { n: "Majestique Towers", p: "1.05 Cr", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" },
+                    { n: "VJ Yashwin Enchante", p: "85 L", i: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600" },
+                    { n: "Unique Youtopia", p: "1.00 Cr", i: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=600" },
+                    { n: "Zen Elite", p: "95 L", i: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600" },
+                    { n: "Mahindra Ivy Lush", p: "1.45 Cr", i: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600" },
+                    { n: "Godrej Woodside", p: "1.10 Cr", i: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600" }
+                ] 
+            },
+            "Mundhwa": { 
+                img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800", 
+                projects: [
+                    { n: "Puravankara Silversands", p: "1.10 Cr", i: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=600" },
+                    { n: "Unique Legacy", p: "85 L", i: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600" },
+                    { n: "Godrej Rejuve", p: "95 L", i: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600" },
+                    { n: "Shapoorji Skyraa", p: "1.55 Cr", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" },
+                    { n: "Venkatesh Graffiti", p: "88 L", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" },
+                    { n: "Kumar Prospera", p: "1.60 Cr", i: "https://images.unsplash.com/photo-1512915920307-446f1f4d7f0a?w=600" },
+                    { n: "Mantra Insignia", p: "80 L", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" },
+                    { n: "Sukhwani Hermosa", p: "88 L", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" },
+                    { n: "Oxford Florida", p: "75 L", i: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=600" },
+                    { n: "Konark Virtue", p: "1.10 Cr", i: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=600" }
+                ] 
+            },
+            "KeshavNagar": { 
+                img: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800", 
+                projects: [
+                    { n: "Que 914", p: "80 L", i: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=600" },
+                    { n: "Mantra Magnus", p: "1.30 Cr", i: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600" },
+                    { n: "Nivasa Elevia", p: "78 L", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" },
+                    { n: "Konark Riva", p: "90 L", i: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=600" },
+                    { n: "Unitry Light", p: "79 L", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600" },
+                    { n: "Mantra Mirari", p: "1.45 Cr", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" },
+                    { n: "Gulmohar Estaban", p: "90 L", i: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600" },
+                    { n: "Sukhwani Casa", p: "88 L", i: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600" },
+                    { n: "K-City", p: "78 L", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" },
+                    { n: "Majestique Oasis", p: "75 L", i: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600" }
+                ] 
+            },
+            "Magarpatta": { 
+                img: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800", 
+                projects: [
+                    { n: "Kumar Parc Residences", p: "1.25 Cr", i: "https://images.unsplash.com/photo-1512915920307-446f1f4d7f0a?w=600" },
+                    { n: "Ganga Avanta", p: "1.70 Cr", i: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600" },
+                    { n: "Mantra One", p: "2.20 Cr", i: "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?w=600" },
+                    { n: "Godrej Elaris", p: "1.60 Cr", i: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600" },
+                    { n: "Marvel Ritz", p: "3.50 Cr", i: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600" },
+                    { n: "Kumar Primavera", p: "1.10 Cr", i: "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600" },
+                    { n: "One North", p: "4.50 Cr", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" },
+                    { n: "Laburnum Park", p: "2.80 Cr", i: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600" },
+                    { n: "Grevillea", p: "1.40 Cr", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" },
+                    { n: "Trillium", p: "1.90 Cr", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" }
+                ] 
+            },
+            "Hadapsar": { 
+                img: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=800", 
+                projects: [
+                    { n: "Aditya Birla Homes", p: "70 L", i: "https://images.unsplash.com/photo-1513584684374-8bdb74838a0f?w=600" },
+                    { n: "SP Joyville", p: "70 L", i: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=600" },
+                    { n: "Kumar Magnacity", p: "72 L", i: "https://images.unsplash.com/photo-1560185031-2ee9b211dd9f?w=600" },
+                    { n: "Amanora Gateway", p: "2.50 Cr", i: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=600" },
+                    { n: "Amanora Adreno", p: "95 L", i: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=600" },
+                    { n: "Codename Fireworks", p: "75 L", i: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600" },
+                    { n: "Shapoorji Manjari", p: "65 L", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" },
+                    { n: "Dosti Greens", p: "80 L", i: "https://images.unsplash.com/photo-1430285561322-7808604715df?w=600" },
+                    { n: "Runwal Seagull", p: "68 L", i: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=600" },
+                    { n: "Ganga Fernhill", p: "70 L", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600" }
+                ] 
+            },
+            "KalyaniNagar": { 
+                img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800", 
+                projects: [
+                    { n: "Bluegrass Residences", p: "3.00 Cr", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" },
+                    { n: "Verde Luxury", p: "4.10 Cr", i: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600" },
+                    { n: "Vivencia KP", p: "3.20 Cr", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600" },
+                    { n: "Lunkad Sky Privilege", p: "4.50 Cr", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" },
+                    { n: "Kumar Sophronia", p: "1.90 Cr", i: "https://images.unsplash.com/photo-1513584684374-8bdb74838a0f?w=600" },
+                    { n: "Brahma Sun City", p: "1.60 Cr", i: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=600" },
+                    { n: "Waterfront", p: "5.00 Cr", i: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600" },
+                    { n: "Trump Towers", p: "12.00 Cr", i: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=600" },
+                    { n: "ABIL Castel Royale", p: "8.00 Cr", i: "https://images.unsplash.com/photo-1512915920307-446f1f4d7f0a?w=600" },
+                    { n: "Hermes Heritage", p: "1.40 Cr", i: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" }
+                ] 
+            },
+            "FatimaNagar": { 
+                img: "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800", 
+                projects: [
+                    { n: "Dosti Project", p: "85 L", i: "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600" },
+                    { n: "Kumar Picasso", p: "1.40 Cr", i: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600" },
+                    { n: "Parmar Garden", p: "90 L", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" },
+                    { n: "Salunke Vihar Elite", p: "1.10 Cr", i: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=600" },
+                    { n: "Krome Luxuria", p: "1.30 Cr", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" },
+                    { n: "Ganga Satellite", p: "1.20 Cr", i: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600" },
+                    { n: "Brahma Majestic", p: "1.00 Cr", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" },
+                    { n: "Gemini Park", p: "88 L", i: "https://images.unsplash.com/photo-1430285561322-7808604715df?w=600" },
+                    { n: "Empire Estate", p: "1.50 Cr", i: "https://images.unsplash.com/photo-1513584684374-8bdb74838a0f?w=600" },
+                    { n: "Flower Valley", p: "95 L", i: "https://images.unsplash.com/photo-1512915920307-446f1f4d7f0a?w=600" }
+                ] 
+            },
+            "KpAnnex": { 
+                img: "https://images.unsplash.com/photo-1430285561322-7808604715df?w=800", 
+                projects: [
+                    { n: "Mantra Mayfair", p: "2.05 Cr", i: "https://images.unsplash.com/photo-1430285561322-7808604715df?w=600" },
+                    { n: "LJM The Reserve", p: "4.00 Cr", i: "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?w=600" },
+                    { n: "Envouge Luxury", p: "1.95 Cr", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" },
+                    { n: "Sushil One", p: "3.20 Cr", i: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=600" },
+                    { n: "Godrej Elements", p: "1.80 Cr", i: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600" },
+                    { n: "VTP Altair", p: "1.10 Cr", i: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=600" },
+                    { n: "Kalpataru Jade", p: "2.50 Cr", i: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600" },
+                    { n: "Kolte Patil Life", p: "1.20 Cr", i: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600" },
+                    { n: "Marvel Zephyr", p: "3.80 Cr", i: "https://images.unsplash.com/photo-1513584684374-8bdb74838a0f?w=600" },
+                    { n: "Panchshil One", p: "6.00 Cr", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" }
+                ] 
+            }
         };
 
-        // 2. DYNAMIC QUOTES
-        const quotes = [
-            "\"Real estate is the safest investment on earth.\"",
-            "\"Don't wait to buy real estate, buy real estate and wait.\"",
-            "\"Buy land, they're not making it anymore.\"",
-            "\"Your dream home is just one phone call away.\""
-        ];
-        let qIdx = 0;
-        setInterval(() => {
-            qIdx = (qIdx + 1) % quotes.length;
-            document.getElementById('quote-box').innerText = quotes[qIdx];
-        }, 5000);
+        const grid = document.getElementById('locGrid');
+        const dropdown = document.getElementById('locDropdown');
 
-        // 3. PROPERTY DATABASE
-        const properties = [
-            { n: "Panchshil Towers", b: "Panchshil", p: "3.55 Cr+", i: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800", r: "12% ROI Growth" },
-            { n: "Lodha Estilo", b: "Lodha Luxury", p: "2.85 Cr+", i: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800", r: "Ultra Luxury" },
-            { n: "VTP Cygnus", b: "VTP Realty", p: "89 Lac+", i: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800", r: "High Demand" },
-            { n: "Godrej Sky Greens", b: "Godrej", p: "95 Lac+", i: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800", r: "Township Living" }
-        ];
+        Object.keys(inventory).forEach(loc => {
+            grid.innerHTML += `<div class="loc-card reveal" onclick="showProperties('${loc}')"><img src="${inventory[loc].img}"><div class="loc-text"><h2>${loc}</h2><p>${inventory[loc].projects.length} Verified Projects</p></div></div>`;
+            dropdown.innerHTML += `<option value="${loc}">${loc}</option>`;
+        });
 
-        function showPortfolio(loc) {
-            const engine = document.getElementById('prop-engine');
-            document.getElementById('loc-tag').innerText = loc + " Collection";
-            
-            // Loop 100 times for mega code length & data depth
-            const dataSet = Array.from({length: 100}, (_, i) => ({ ...properties[i % properties.length], id: i }));
-
-            engine.innerHTML = dataSet.map(p => `
-                <div class="prop-card">
-                    <div class="prop-img">
-                        <img src="${p.i}">
-                        <div class="roi-tag">${p.r}</div>
-                    </div>
-                    <div class="prop-info">
-                        <h5>${p.n}</h5>
-                        <p style="color:#888; margin-bottom:15px;">By ${p.b} Group</p>
-                        <span class="prop-price">₹ ${p.p}</span>
-                        <div class="cta-box">
-                            <a href="tel:7558553404" class="cta-btn cta-black">Call</a>
-                            <a href="https://wa.me/917558553404" class="cta-btn cta-green">WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('portfolio-view').style.display = 'block';
-            setTimeout(() => document.getElementById('portfolio-view').classList.add('active'), 10);
+        function showProperties(loc) {
+            const engine = document.getElementById('propEngine');
+            document.getElementById('modalTitle').innerText = loc;
+            engine.innerHTML = "";
+            inventory[loc].projects.forEach(p => {
+                engine.innerHTML += `<div class="prop-card"><img src="${p.i}" class="prop-img"><div class="prop-info"><h3>${p.n}</h3><div class="price-row"><span>Config</span><span>2/3/4 BHK</span></div><div class="price-row"><span>Price</span><span class="price-tag">₹ ${p.p}</span></div><a href="https://wa.me/917558553404?text=Details of ${p.n} at ${loc}" class="f-btn" style="display:block; background:var(--apple-blue); color:#fff; margin-top:15px;">Inquire Now</a></div></div>`;
+            });
+            document.getElementById('modal').style.display = "block";
+            document.body.style.overflow = "hidden";
         }
 
-        function hidePortfolio() {
-            document.getElementById('portfolio-view').classList.remove('active');
-            setTimeout(() => document.getElementById('portfolio-view').style.display = 'none', 900);
-        }
+        function handleSearch() { if(dropdown.value) showProperties(dropdown.value); }
+        function closeModal() { document.getElementById('modal').style.display = "none"; document.body.style.overflow = "auto"; }
 
-        // 4. BOOT LOADER
-        window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('intro-stage').style.opacity = '0';
-                setTimeout(() => document.getElementById('intro-stage').style.display = 'none', 1500);
-            }, 4000);
-        };
+        const obs = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }));
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>
